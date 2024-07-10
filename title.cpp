@@ -16,14 +16,23 @@ void TitleDraw() {
 	SetFontSize(40);
 	DrawFormatString(50, 240, Color_Yellow, "ENTERキーorPSコントローラーの\nタッチパッドを押して\n　　　スタート");
 
-	if (key[KEY_INPUT_RETURN] == 1) {
-		if (GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_H) {// タッチパッド
-			game_state = GAME_PLAYING;
-			PlaySoundMem(gameSound, DX_PLAYTYPE_LOOP);
-			//WaitTimer(100);
+	// エンターキーが押された場合
+	if (CheckHitKey(KEY_INPUT_RETURN) == 1) {
+		game_state = GAME_PLAYING;
+		PlaySoundMem(gameSound, DX_PLAYTYPE_LOOP);
+		//WaitTimer(100);
 
-			// ゲーム内で使うフォントサイズを指定する(ないと指示と同じになる)
-			SetFontSize(DRAW_BLOCK_WIDTH);
-		}
+		// ゲーム内で使うフォントサイズを指定する(ないと指示と同じになる)
+		SetFontSize(DRAW_BLOCK_WIDTH);
+	}
+
+	// ゲームパッドのタッチパッドが押された場合
+	if (GetJoypadInputState(DX_INPUT_PAD1) & PAD_INPUT_H) {
+		game_state = GAME_PLAYING;
+		PlaySoundMem(gameSound, DX_PLAYTYPE_LOOP);
+		//WaitTimer(100);
+
+		// ゲーム内で使うフォントサイズを指定する(ないと指示と同じになる)
+		SetFontSize(DRAW_BLOCK_WIDTH);
 	}
 }
